@@ -37,7 +37,7 @@ public class ChallengueApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("Hola pa123");
+		System.out.println("Hola pa123 333");
 		this.service.createBibliotec(new Bibliotec(UUID.randomUUID(), "Icesi bibliotec", 1978));
 		List<Bibliotec> b = this.service.getAllBibliotec();
 		System.out.println(b);
