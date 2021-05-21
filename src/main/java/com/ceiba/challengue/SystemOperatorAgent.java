@@ -17,7 +17,7 @@ public class SystemOperatorAgent {
 	        log(command);
 	        Process process = Runtime.getRuntime().exec(command);
 	        logOutput(process.getInputStream(), "");
-	        logOutput(process.getErrorStream(), "Error1232 22: ");
+	        logOutput(process.getErrorStream(), "Error123: ");
 	        process.waitFor();
 	    } catch (IOException | InterruptedException e) {
 	    	System.out.println(e.getMessage());
