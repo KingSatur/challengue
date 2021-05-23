@@ -7,17 +7,24 @@ import org.springframework.context.annotation.Configuration;
 import com.ceiba.challengue.ChallengueApplication;
 import com.ceiba.challengue.domain.repository.BibliotecRepository;
 import com.ceiba.challengue.domain.repository.BookRepository;
-import com.ceiba.challengue.domain.service.BibliotecBussinesService;
-import com.ceiba.challengue.domain.service.BussinesServiceImpl;
+import com.ceiba.challengue.domain.service.BibliotecService;
+import com.ceiba.challengue.domain.service.BibliotecServiceImpl;
+import com.ceiba.challengue.domain.service.BookService;
+import com.ceiba.challengue.domain.service.BookServiceImpl;;
 
 @Configuration
 @ComponentScan(basePackageClasses = ChallengueApplication.class)
 public class BeanConfiguration {
 
 	@Bean
-	BibliotecBussinesService bibliotecBussinesService(final BookRepository bookRepository,
-			final BibliotecRepository bibliotecRepository) {
-		return new BussinesServiceImpl(bibliotecRepository, bookRepository);
+	BibliotecService bibliotecService(final BibliotecRepository bibliotecRepository,
+			final BookRepository bookRepository) {
+		return new BibliotecServiceImpl(bibliotecRepository, bookRepository);
+	}
+
+	@Bean
+	BookService bookService(final BookRepository bookRepository) {
+		return new BookServiceImpl(bookRepository);
 	}
 
 }

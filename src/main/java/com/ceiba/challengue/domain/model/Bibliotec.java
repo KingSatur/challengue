@@ -9,19 +9,20 @@ import java.util.UUID;
 
 public class Bibliotec {
 
-	private UUID id;
+	private String id;
 	private String name;
 	private Integer foundedIn;
 	private List<Book> books;
 //	private Address address;
 
-	public Bibliotec(final UUID id, final String name, final Integer foundedIn) {
+	public Bibliotec(final String id, final String name, final Integer foundedIn, final List<Book> books) {
 		Validator.validate(name, "Name can not be null");
 		Validator.validate(foundedIn, "FoundedIn can not be null");
+		Validator.validate(books, "books can not be null");
 		this.id = id;
 		this.name = name;
 		this.foundedIn = foundedIn;
-		this.books = new ArrayList<Book>();
+		this.books = books;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -32,11 +33,23 @@ public class Bibliotec {
 		this.books.add(book);
 	}
 
-	public UUID getId() {
+	public List<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(List<Book> books) {
+		this.books = books;
+	}
+
+	public void setFoundedIn(Integer foundedIn) {
+		this.foundedIn = foundedIn;
+	}
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

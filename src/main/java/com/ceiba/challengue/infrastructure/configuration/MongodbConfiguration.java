@@ -4,7 +4,6 @@ import java.text.ParseException;
 
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import com.ceiba.challengue.SystemOperatorAgent;
 import com.ceiba.challengue.infrastructure.repository.mongo.SpringDataMongodBibliotecRepository;
 import com.ceiba.challengue.infrastructure.repository.mongo.SpringDataMongodbBookRepository;
 

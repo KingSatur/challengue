@@ -2,6 +2,8 @@ plugins {
 	id 'org.springframework.boot' version '2.4.5'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'jacoco'
+	id 'org.sonarqube' version '3.0'
 }
 
 group = 'com.ceiba'
@@ -30,3 +32,22 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+sonarqube {
+    properties {
+        property "sonar.login", "admin"
+        property "sonar.password", "juanMESsi"
+    }
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			limit {
+				minimum = 0.2
+			}
+		}
+	}
+}
+
+

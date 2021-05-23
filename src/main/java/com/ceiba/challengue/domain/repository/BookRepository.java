@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.ceiba.challengue.domain.dto.BookDTO;
 import com.ceiba.challengue.domain.model.Book;
 
 public interface BookRepository {
@@ -12,6 +13,8 @@ public interface BookRepository {
 
 	public Optional<List<Book>> findByBibliotec(UUID bibliotescId);
 
-	public Book saveBook(Book book, UUID bibliotecId);
+	public Book saveBook(BookDTO book);
+	
+	public List<Book> saveAllBooks(List<BookDTO> booksDto);
 
 }
