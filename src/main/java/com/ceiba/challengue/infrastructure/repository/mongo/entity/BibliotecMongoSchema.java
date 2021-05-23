@@ -22,15 +22,11 @@ public class BibliotecMongoSchema {
 	@Field(name = "founded_in")
 	private Integer foundedIn;
 
-	@DBRef
-	private List<BookMongoSchema> books;
 
-
-	public BibliotecMongoSchema(String name, Integer foundedIn, List<BookMongoSchema> books) {
+	public BibliotecMongoSchema(String name, Integer foundedIn) {
 		super();
 		this.name = name;
 		this.foundedIn = foundedIn;
-		this.books = books;
 	}
 
 	public String getId() {
@@ -56,13 +52,4 @@ public class BibliotecMongoSchema {
 	public void setFoundedIn(Integer foundedIn) {
 		this.foundedIn = foundedIn;
 	}
-
-	public List<BookMongoSchema> getBooks() {
-		return books;
-	}
-
-	public void setBooks(List<BookMongoSchema> books) {
-		this.books = books;
-	}
-
 }

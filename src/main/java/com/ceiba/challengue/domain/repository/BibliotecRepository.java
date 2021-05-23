@@ -9,9 +9,9 @@ import com.ceiba.challengue.domain.model.Bibliotec;
 
 public interface BibliotecRepository {
 
-	public Optional<Bibliotec> findById(UUID id);
+	public Optional<Bibliotec> findById(String id);
 
-	public Bibliotec save(BibliotecDTO bibliotec);
+	public Bibliotec create(BibliotecDTO bibliotecDTO);
 	
 	public List<Bibliotec> findAll();
 

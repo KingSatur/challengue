@@ -1,5 +1,6 @@
 package com.ceiba.challengue.infrastructure.repository.mongo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -33,40 +34,21 @@ public class MongodbBibliotecRepository implements BibliotecRepository {
 	}
 
 	@Override
-	public Optional<Bibliotec> findById(UUID id) {
-		// TODO Auto-generated method stub
-
+	public List<Bibliotec> findAll() {
 		return null;
 	}
 
 	@Override
-	public List<Bibliotec> findAll() {
-		// TODO Auto-generated method stub
-		List<BibliotecMongoSchema> bibliotecsFromDb = this.bibliotecDatabaseRepository.findAll();
-		List<Bibliotec> bibliotecs = bibliotecsFromDb.stream().map(dbItem -> {
-			return new Bibliotec(dbItem.getId(), dbItem.getName(), dbItem.getFoundedIn(),
-					dbItem.getBooks().stream()
-							.map(m -> new Book(m.getId().toString(), m.getName(), m.getPrice(), m.getActive(), m.getEnteredOn()))
-							.collect(Collectors.toList()));
-		}).collect(Collectors.toList());
-		return bibliotecs;
+	public Bibliotec create(BibliotecDTO bibliotec) {
+		BibliotecMongoSchema schema = new BibliotecMongoSchema(bibliotec.getName(), bibliotec.getFoundedIn());
+		schema = this.bibliotecDatabaseRepository.save(schema);
+		return new Bibliotec(schema.getId(), schema.getName(), schema.getFoundedIn(), new ArrayList<>());
+	
 	}
 
 	@Override
-	public Bibliotec save(BibliotecDTO bibliotec) {
-		List<BookMongoSchema> books = bibliotec.getBooks().stream().map(m -> {
-			BookMongoSchema l = new BookMongoSchema(m.getName(), m.getPrice(), m.getActive(), m.getEnteredOn());
-			l.setId(m.getId());
-			return l;
-		}).collect(Collectors.toList());
-
-		BibliotecMongoSchema schema = new BibliotecMongoSchema(bibliotec.getName(), bibliotec.getFoundedIn(), books);
-		schema = this.bibliotecDatabaseRepository.save(schema);
-		List<Book> domainBooks = schema.getBooks().stream()
-				.map(k -> new Book(k.getId(), k.getName(), k.getPrice(), k.getActive(), k.getEnteredOn()))
-				.collect(Collectors.toList());
-		Bibliotec b = new Bibliotec(schema.getId().toString(), schema.getName(), schema.getFoundedIn(), domainBooks);
-		return b;
+	public Optional<Bibliotec> findById(String id) {
+		return null;
 
 	}
 

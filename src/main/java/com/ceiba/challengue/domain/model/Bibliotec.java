@@ -12,10 +12,10 @@ public class Bibliotec {
 	private String id;
 	private String name;
 	private Integer foundedIn;
-	private List<Book> books;
+	private List<ItemBook> books;
 //	private Address address;
 
-	public Bibliotec(final String id, final String name, final Integer foundedIn, final List<Book> books) {
+	public Bibliotec(final String id, final String name, final Integer foundedIn, final List<ItemBook> books) {
 		Validator.validate(name, "Name can not be null");
 		Validator.validate(foundedIn, "FoundedIn can not be null");
 		Validator.validate(books, "books can not be null");
@@ -26,18 +26,18 @@ public class Bibliotec {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void addBook(final Book book) {
+	public void addBook(final ItemBook book) {
 		if (book == null) {
 			throw new BibliotecBussinesBrokenException("Book can not be null");
 		}
 		this.books.add(book);
 	}
 
-	public List<Book> getBooks() {
+	public List<ItemBook> getBooks() {
 		return books;
 	}
 
-	public void setBooks(List<Book> books) {
+	public void setBooks(List<ItemBook> books) {
 		this.books = books;
 	}
 

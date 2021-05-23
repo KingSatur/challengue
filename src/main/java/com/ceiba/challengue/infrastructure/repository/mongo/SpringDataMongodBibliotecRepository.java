@@ -10,6 +10,6 @@ import com.ceiba.challengue.infrastructure.repository.mongo.entity.BibliotecMong
 
 
 @Repository
-public interface SpringDataMongodBibliotecRepository extends MongoRepository<BibliotecMongoSchema, UUID> {
+public interface SpringDataMongodBibliotecRepository extends MongoRepository<BibliotecMongoSchema, String> {
 
 }
