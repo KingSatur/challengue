@@ -2,23 +2,30 @@ package com.ceiba.challengue.domain.dto;
 
 import java.util.List;
 
-import com.ceiba.challengue.domain.model.Book;
-
 public class BibliotecDTO {
 
+	private String id;
 	private String name;
 	private Integer foundedIn;
-	private List<BookDTO> books;
+	private List<ItemBookDTO> books;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
 	}
 
-	public List<BookDTO> getBooks() {
+	public List<ItemBookDTO> getBooks() {
 		return books;
 	}
 
-	public void setBooks(List<BookDTO> books) {
+	public void setBooks(List<ItemBookDTO> books) {
 		this.books = books;
 	}
 

@@ -6,13 +6,43 @@ public class ItemBook {
 
 	private BigInteger quantity;
 	private boolean active;
-	private Book book;
+	private String bookId;
+	private String bibliotecId;
+	private String id;
 
-	public ItemBook(BigInteger quantity, boolean active, Book book) {
+	public ItemBook(String id, BigInteger quantity,
+			boolean active, String bookId,
+			String bibliotecId) {
 		super();
+		this.id = id;
 		this.quantity = quantity;
 		this.active = active;
-		this.book = book;
+		this.bookId = bookId;
+		this.bibliotecId = bibliotecId;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getBookId() {
+		return bookId;
+	}
+
+	public String getBibliotecId() {
+		return bibliotecId;
+	}
+
+	public void setBibliotecId(String bibliotecId) {
+		this.bibliotecId = bibliotecId;
+	}
+
+	public void setBookId(String bookId) {
+		this.bookId = bookId;
 	}
 
 	public BigInteger getQuantity() {
@@ -29,14 +59,6 @@ public class ItemBook {
 
 	public void setActive(boolean active) {
 		this.active = active;
-	}
-
-	public Book getBook() {
-		return book;
-	}
-
-	public void setBook(Book book) {
-		this.book = book;
 	}
 
 }

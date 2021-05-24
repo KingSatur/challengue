@@ -2,6 +2,7 @@ package com.ceiba.challengue.domain.service;
 
 import java.util.List;
 
+import com.ceiba.challengue.domain.dto.BookDTO;
 import com.ceiba.challengue.domain.model.Book;
 
 public interface BookService {
@@ -10,9 +11,9 @@ public interface BookService {
 
 	public List<Book> getAllBookByBibliotecId();
 
-	public void deleteBook();
+	public boolean deleteBook(String id);
 
-	public void saveBook();
+	public Book saveBook(BookDTO book);
 
 	public void updateBook();
 
