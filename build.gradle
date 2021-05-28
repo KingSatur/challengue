@@ -20,15 +20,23 @@ repositories {
 	mavenCentral()
 }
 
+
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	 testImplementation('org.springframework.boot:spring-boot-starter-test:2.2.2.RELEASE') {
+        exclude group: 'junit'
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.4.5'
 	// https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.3'
+	testImplementation('org.junit.jupiter:junit-jupiter-api:5.5.2')
+    testImplementation('org.junit.jupiter:junit-jupiter-engine:5.5.2')
+    testImplementation('org.junit.jupiter:junit-jupiter-params:5.5.2')
+	
 	
 }
 

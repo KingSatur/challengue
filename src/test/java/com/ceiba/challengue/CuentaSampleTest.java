@@ -5,12 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTimeout;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.junit.jupiter.api.Assumptions.assumingThat;
 
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -22,7 +25,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.RepetitionInfo;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.api.TestReporter;
+import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 import org.junit.jupiter.api.condition.DisabledOnOs;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
@@ -41,29 +48,38 @@ import com.ceiba.challengue.exceptions.DineroInsuficienteException;
 class CuentaSampleTest {
 	CuentaSample cuenta;
 
+	// En caso de que se quiera usar un metodo del cicla de vida y en cada metodo
+	// anotado con @Test
+	TestInfo testInfo;
+	TestReporter testReporter;
+
 	@BeforeAll
 	static void beforeAll() {
 		// Inicializar algun recurso, alguna conexion
-		System.out.println("Inicializando el test");
+		System.out
+				.println("Inicializando todas las pruebas");
 	}
 
 	@AfterAll
 	static void afterAll() {
-		System.out.println("Finalizando test");
+		System.out.println("Finalizando todas las pruebas");
 	}
 
 	@BeforeEach
-	void initMetodoTest() {
-		System.out.println("Iniciando el metodo");
+	void initMetodoTest(TestInfo testInfo,
+			TestReporter testReporter) {
+		System.out.println("Iniciando el metodo: "
+				+ testInfo.getDisplayName());
 		this.cuenta = new CuentaSample("Leonel",
 				new BigDecimal("26.700"));
 	}
 
 	@AfterEach
 	void finished() {
-		System.out.println("Finalizando el metodo");
+//		System.out.println("Finalizando el metodo");
 	}
 
+	@Tag("logic")
 	@DisplayName("Logica de negocio")
 	@Nested
 	class CuentaTest {
@@ -72,7 +88,9 @@ class CuentaSampleTest {
 
 		@Test
 		@DisplayName("Probando el nombre de la cuenta")
-		void testNombreCuenta() {
+		void testNombreCuenta(TestInfo testInfo,
+				TestReporter testReporter) {
+			System.out.println(testInfo.getTags());
 			String str = "Leonel";
 			cuenta.setSaldo(BigDecimal.valueOf(25.000));
 			Assertions.assertEquals(str,
@@ -126,6 +144,7 @@ class CuentaSampleTest {
 
 		@Nested
 		class PruebasParametrizadas {
+			@Disabled
 			@ParameterizedTest(name = "numero {index} ejecutando con valor {0} - {argumentsWithNames}")
 			@ValueSource(strings = { "10.000", "15.000",
 					"20.000" })
@@ -140,6 +159,7 @@ class CuentaSampleTest {
 
 			}
 
+			@Disabled
 			@ParameterizedTest(name = "numero {index} ejecutando con valor {0} - {argumentsWithNames}")
 			@CsvSource({ "1,10.000", "2,15.000",
 					"3,20.000" })
@@ -156,6 +176,7 @@ class CuentaSampleTest {
 
 			}
 
+			@Disabled
 			@ParameterizedTest(name = "numero {index} ejecutando con valor {0} - {argumentsWithNames}")
 			@CsvFileSource(resources = "/data.csv")
 			void testCreditoCuentaCsvFileSource(
@@ -190,7 +211,43 @@ class CuentaSampleTest {
 
 		}
 
+		@Tag("Timeout")
+		@DisplayName("Pruebas de timeout")
+		@Nested
+		class TimeToutTest {
+
+			@Test
+			@Disabled
+			@Timeout(2)
+			void pruebaTimeout()
+					throws InterruptedException {
+				TimeUnit.MILLISECONDS.sleep(2000);
+
+			}
+
+			@Test
+			@Disabled
+			@Timeout(value = 500, unit = TimeUnit.MILLISECONDS)
+			void pruebaTimeout2()
+					throws InterruptedException {
+				TimeUnit.MILLISECONDS.sleep(5);
+
+			}
+
+			@Test
+			@Disabled
+			void pruebaTimeout3()
+					throws InterruptedException {
+				assertTimeout(Duration.ofSeconds(2), () -> {
+					TimeUnit.SECONDS.sleep(1);
+				});
+
+			}
+
+		}
+
 		@Test
+		@Tag("Error")
 		@DisplayName("Probando excepcion cuando se saca mas dinero del que se tiene")
 		void testDineroInsuficienteException() {
 			CuentaSample sample = new CuentaSample("Messi",
@@ -280,6 +337,7 @@ class CuentaSampleTest {
 
 	}
 
+	@Tag("os")
 	@Nested
 	class SistemaOperativoTest {
 		@Test
