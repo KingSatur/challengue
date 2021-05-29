@@ -14,4 +14,6 @@ public interface ItemBookRepository {
 
 	public boolean deleteByBookId(String id);
 
+	public void deleteById(String id);
+
 }

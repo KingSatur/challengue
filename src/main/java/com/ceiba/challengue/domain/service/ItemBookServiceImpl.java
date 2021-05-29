@@ -58,4 +58,11 @@ public class ItemBookServiceImpl
 		return this.repository.deleteByBookId(id);
 	}
 
+	@Override
+	public void deleteById(String id) {
+//		System.out.println(id);
+		// TODO Auto-generated method stub
+		this.repository.deleteById(id);
+	}
+
 }

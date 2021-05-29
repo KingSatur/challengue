@@ -148,6 +148,7 @@ class CuentaSampleTest {
 			@ParameterizedTest(name = "numero {index} ejecutando con valor {0} - {argumentsWithNames}")
 			@ValueSource(strings = { "10.000", "15.000",
 					"20.000" })
+
 			void testCreditoCuentaValueSource(
 					String monto) {
 				CuentaSample sample = new CuentaSample(

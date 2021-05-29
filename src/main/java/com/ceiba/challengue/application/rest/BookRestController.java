@@ -37,7 +37,6 @@ public class BookRestController {
 			return ResponseEntity.status(HttpStatus.CREATED)
 					.body(domainBook);
 		} catch (Exception e) {
-			// TODO: handle exception
 			return ResponseEntity.status(
 					HttpStatus.INTERNAL_SERVER_ERROR)
 					.body(null);
@@ -53,7 +52,6 @@ public class BookRestController {
 			return ResponseEntity.status(HttpStatus.CREATED)
 					.body(book);
 		} catch (Exception e) {
-			// TODO: handle exception
 			return ResponseEntity.status(
 					HttpStatus.INTERNAL_SERVER_ERROR)
 					.body(null);
@@ -68,7 +66,6 @@ public class BookRestController {
 			return ResponseEntity.status(HttpStatus.CREATED)
 					.body(books);
 		} catch (Exception e) {
-			// TODO: handle exception
 			return ResponseEntity.status(
 					HttpStatus.INTERNAL_SERVER_ERROR)
 					.body(null);
@@ -76,26 +73,21 @@ public class BookRestController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteBook(
+	public ResponseEntity<Void> deleteBook(
 			@PathVariable("id") String id) {
 		try {
 			boolean taskDeleteBook = this.bookService
 					.deleteBook(id);
-			System.out.println(taskDeleteBook);
 			if (taskDeleteBook) {
 				boolean taskDeleteItemsBooks = this.itemBookService
 						.deleteByBookId(id);
-				return ResponseEntity.status(
-						HttpStatus.INTERNAL_SERVER_ERROR)
-						.body(taskDeleteBook
-								&& taskDeleteItemsBooks);
+				return new ResponseEntity<Void>(
+						HttpStatus.NO_CONTENT);
 			}
-			return ResponseEntity.status(
-					HttpStatus.INTERNAL_SERVER_ERROR)
-					.body(taskDeleteBook);
+			return new ResponseEntity<Void>(
+					HttpStatus.INTERNAL_SERVER_ERROR);
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			return ResponseEntity.status(
 					HttpStatus.INTERNAL_SERVER_ERROR)
 					.body(null);

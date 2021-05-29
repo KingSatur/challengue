@@ -81,4 +81,10 @@ public class MongodbItemBookRepository
 		return completedTaskList.stream().allMatch(m -> !m);
 	}
 
+	@Override
+	public void deleteById(String id) {
+		// TODO Auto-generated method stub
+		this.repository.deleteById(id);
+	}
+
 }
